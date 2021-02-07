@@ -24,7 +24,7 @@ var connection = mysql.createConnection({
 
 FUNCTIONS TO DO (inquirer):
 
-  []startDirectory()
+  [X]startDirectory()
   []addDepartment()
   []addRole()
   []addEmployee()
@@ -32,6 +32,7 @@ FUNCTIONS TO DO (inquirer):
   []viewRoles()
   []viewEmployees()
   []updateEmployeeRole()
+  []removeEmployee
 
 
 */
@@ -59,9 +60,22 @@ const start = function() {
       .then(function(answer) {
         console.log(answer);
         switch (answer.startDirectory) {
-          case "Add department":
-            addDepartment();
-            break;
+            case "Add department":
+                addDepartment();
+            case "Add employee":
+                addEmployee();
+            case "Add role":
+                addRole();
+            case "View all departments":
+                viewDepartments();
+            case "View All employees":
+                viewEmployees();
+            case "View All roles":
+                viewRoles();
+            case "Update empoyee role":
+                updateEmployeeRole();
+            case "Remove employee":
+                removeEmployee();
         };
       });
 };

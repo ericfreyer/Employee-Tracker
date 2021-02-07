@@ -11,7 +11,7 @@ CREATE TABLE department (
 );
 
 CREATE TABLE role (
-	id INT, 
+	id INT auto_increment, 
     title VARCHAR(30),
     salary DECIMAL(10,4),
     department_id INT,
@@ -19,7 +19,7 @@ CREATE TABLE role (
 );
 
 CREATE TABLE employee (
-	id INT,
+	id INT auto_increment,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     role_id INT,
