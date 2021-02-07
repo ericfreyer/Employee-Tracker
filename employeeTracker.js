@@ -56,10 +56,37 @@ const start = function() {
           "Remove employee"
         ]
       })
-
-}
+      .then(function(answer) {
+        console.log(answer);
+        switch (answer.startDirectory) {
+          case "Add department":
+            addDepartment();
+            break;
+        };
+      });
+};
 start()
 //addDepartment
+function addDepartment (){
+    inquirer
+    .prompt({
+        type: "input",
+        name: "department",
+        message: "What department would you like to add?"   
+    })
+    .then(function(answer){
+        connection.query("INSERT INTO department SET ?",
+        {
+            name: answer.department
+        }
+        ),
+        console.table(answer);
+        start()
+    })
+
+}
+
+
 
 
 //addRole
