@@ -29,7 +29,7 @@ FUNCTIONS TO DO (inquirer):
   []addRole()
   []addEmployee()
   []viewDepartments()
-  []viewRoles()
+  [X]viewRoles()
   []viewEmployees()
   []updateEmployeeRole()
   []removeEmployee
@@ -57,9 +57,9 @@ const start = function() {
           "Remove employee"
         ]
       })
-      .then(function(response) {
-        console.log(response);
-        switch (response.startDirectory) {
+      .then(function(answer) {
+        console.log(answer);
+        switch (answer.startDirectory) {
             case "Add department":
                 addDepartment();
             break;
@@ -118,19 +118,30 @@ function addDepartment (){
 
 
 //viewDepartments
-
+function viewDepartments() {
+    connection.query("SELECT * FROM department", function(err, response) {
+    if(err) throw err;
+    console.table(response);
+    });
+    start();
+};
 
 //viewRoles
 function viewRoles() {
     connection.query("SELECT * FROM role", function(err, response) {
     if(err) throw err;
-    console.log("\n Roles Retrieved from Database \n");
     console.table(response);
     });
     start();
 };
 
 //viewEmployees
-
+function viewEmployees() {
+    connection.query("SELECT * FROM employee", function(err, response) {
+    if(err) throw err;
+    console.table(response);
+    });
+    start();
+};
 
 //updateEmployeeRole
