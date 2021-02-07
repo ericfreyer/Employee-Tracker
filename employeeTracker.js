@@ -23,9 +23,9 @@ var connection = mysql.createConnection({
   []Add seeds sql file
 
 FUNCTIONS TO DO (inquirer):
-
+  []get directory to show with console.table?
   [X]startDirectory()
-  []addDepartment()
+  [X]addDepartment()
   []addRole()
   []addEmployee()
   []viewDepartments()
@@ -57,25 +57,33 @@ const start = function() {
           "Remove employee"
         ]
       })
-      .then(function(answer) {
-        console.log(answer);
-        switch (answer.startDirectory) {
+      .then(function(response) {
+        console.log(response);
+        switch (response.startDirectory) {
             case "Add department":
                 addDepartment();
+            break;
             case "Add employee":
                 addEmployee();
+            break;
             case "Add role":
                 addRole();
+            break;
             case "View all departments":
                 viewDepartments();
-            case "View All employees":
+            break;
+            case "View all employees":
                 viewEmployees();
-            case "View All roles":
+            break;
+            case "View all roles":
                 viewRoles();
+            break;
             case "Update empoyee role":
                 updateEmployeeRole();
+            break;
             case "Remove employee":
                 removeEmployee();
+            break;
         };
       });
 };
@@ -113,7 +121,14 @@ function addDepartment (){
 
 
 //viewRoles
-
+function viewRoles() {
+    connection.query("SELECT * FROM role", function(err, response) {
+    if(err) throw err;
+    console.log("\n Roles Retrieved from Database \n");
+    console.table(response);
+    });
+    start();
+};
 
 //viewEmployees
 
