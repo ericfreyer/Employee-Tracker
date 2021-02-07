@@ -18,3 +18,20 @@ var connection = mysql.createConnection({
 
 
 
+/*
+
+  []Add seeds sql file
+
+FUNCTIONS TO DO:
+
+  []startDirectory()
+  []addDepartment()
+  []addRole()
+  []addEmployee()
+  []viewDepartments()
+  []viewRoles()
+  []viewEmployees()
+  []updateEmployeeRole()
+
+
+*/
