@@ -22,7 +22,7 @@ var connection = mysql.createConnection({
 
   []Add seeds sql file
 
-FUNCTIONS TO DO:
+FUNCTIONS TO DO (inquirer):
 
   []startDirectory()
   []addDepartment()
@@ -35,3 +35,46 @@ FUNCTIONS TO DO:
 
 
 */
+
+
+//Start prompt
+
+const start = function() {
+    inquirer
+      .prompt({
+        type: "list",
+        name: "startDirectory",
+        message: "What would you like to do?",
+        choices: [
+          "View all departments",
+          "View all employees",
+          "View all roles",
+          "Add employee",
+          "Add department",
+          "Add role",
+          "Update employee role",
+          "Remove employee"
+        ]
+      })
+
+}
+start()
+//addDepartment
+
+
+//addRole
+
+
+//addEmployee
+
+
+//viewDepartments
+
+
+//viewRoles
+
+
+//viewEmployees
+
+
+//updateEmployeeRole
