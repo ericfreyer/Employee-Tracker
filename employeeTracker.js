@@ -23,16 +23,17 @@ var connection = mysql.createConnection({
   []Add seeds sql file
 
 FUNCTIONS TO DO (inquirer):
-  []get directory to show with console.table?
+  []get whole directory to show with console.table?
   [X]startDirectory()
   [X]addDepartment()
   []addRole()
   []addEmployee()
-  []viewDepartments()
+  [X]viewDepartments()
   [X]viewRoles()
-  []viewEmployees()
+  [X]viewEmployees()
   []updateEmployeeRole()
   []removeEmployee
+  []viewEverything
 
 
 */
@@ -52,7 +53,7 @@ const start = function() {
           "View all roles",
           "Add employee",
           "Add department",
-          "Add role",
+          "Add a role",
           "Update employee role",
           "Remove employee"
         ]
@@ -66,7 +67,7 @@ const start = function() {
             case "Add employee":
                 addEmployee();
             break;
-            case "Add role":
+            case "Add a role":
                 addRole();
             break;
             case "View all departments":
@@ -78,7 +79,7 @@ const start = function() {
             case "View all roles":
                 viewRoles();
             break;
-            case "Update empoyee role":
+            case "Update employee role":
                 updateEmployeeRole();
             break;
             case "Remove employee":
@@ -108,10 +109,43 @@ function addDepartment (){
 
 }
 
-
+//viewEverything
 
 
 //addRole
+function addRole() {
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "enter employee title",
+        name: "title"
+      },
+      {
+        type: "input",
+        message: "enter employee salary",
+        name: "salary"
+      },
+      {
+        type: "input",
+        message: "enter employee department id",
+        name: "departmentId"
+      }
+    ])
+    .then (function(response) {
+        connection.query("INSERT INTO role SET ?",
+        {
+            title: response.title, salary: response.salary, departmentId: response.departmentID
+        },
+        function(err, response) {
+            if (err) throw err;
+            console.table(response)
+        });
+        start()
+        
+    });
+
+};
 
 
 //addEmployee
@@ -145,3 +179,6 @@ function viewEmployees() {
 };
 
 //updateEmployeeRole
+
+
+//removeEmployee
