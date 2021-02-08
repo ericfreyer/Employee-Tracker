@@ -106,12 +106,8 @@ function addDepartment (){
         console.table(answer);
         start()
     })
-
-}
-
+};
 //viewEverything
-
-
 //addRole
 function addRole() {
     inquirer
@@ -129,22 +125,23 @@ function addRole() {
       {
         type: "input",
         message: "enter employee department id",
-        name: "departmentId"
+        name: "department_id"
       }
     ])
-    .then (function(response) {
+    .then (function(answer) {
         connection.query("INSERT INTO role SET ?",
         {
-            title: response.title, salary: response.salary, departmentId: response.departmentID
+            title: answer.title, salary: answer.salary, department_id: answer.department_iD
         },
-        function(err, response) {
+        function(err, answer) {
             if (err) throw err;
-            console.table(response)
-        });
-        start()
+        console.table(answer)
+        start()});
+        
+        
         
     });
-
+    
 };
 
 
