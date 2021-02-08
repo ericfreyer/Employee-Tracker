@@ -26,8 +26,8 @@ FUNCTIONS TO DO (inquirer):
   []get whole directory to show with console.table?
   [X]startDirectory()
   [X]addDepartment()
-  []addRole()
-  []addEmployee()
+  [X]addRole()
+  [X]addEmployee()
   [X]viewDepartments()
   [X]viewRoles()
   [X]viewEmployees()
@@ -135,18 +135,38 @@ function addRole() {
         },
         function(err, answer) {
             if (err) throw err;
-        console.table(answer)
-        start()});
-        
-        
-        
+        start()});  
     });
     
 };
 
 
 //addEmployee
-
+function addEmployee() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What is the employee's first name?",
+            name: "first_name"
+        },
+        {
+            type: "input",
+            message: "What is the employee's last name?",
+            name: "last_name"
+        },
+    ])
+    .then (function(answer) {
+        connection.query("INSERT INTO employee SET ?",
+        {
+            first_name: answer.first_name,
+            last_name: answer.last_name
+        },
+        function(err, answer) {
+            if (err) throw err;
+            start()});
+    });
+};
 
 //viewDepartments
 function viewDepartments() {
