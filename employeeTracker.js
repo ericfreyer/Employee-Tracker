@@ -128,6 +128,11 @@ function addDepartment (){
 
 //addRole
 function addRole() {
+  connection.query("SELECT * FROM role", function(err, response) {
+    if(err) throw err;
+    console.log("                                                                                      ")
+    console.table(response);
+    });
     inquirer
     .prompt([
       {
@@ -142,7 +147,7 @@ function addRole() {
       },
       {
         type: "input",
-        message: "enter employee department id",
+        message: "enter new role id",
         name: "role_id"
       }
     ])
