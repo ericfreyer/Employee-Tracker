@@ -14,24 +14,7 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    console.log(`╔═════════════════════════════════════════════════════╗
-║                                                     ║
-║     _____                 _                         ║
-║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
-║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
-║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
-║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
-║                    |_|            |___/             ║
-║                                                     ║
-║     __  __                                          ║
-║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
-║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
-║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
-║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
-║                              |___/                  ║
-║                                                     ║
-\╚═════════════════════════════════════════════════════╝
-`);
+    
   });
 
 
@@ -41,7 +24,6 @@ var connection = mysql.createConnection({
   [X]Add seeds sql file
 
 FUNCTIONS TO DO (inquirer):
-  []get whole directory to show with console.table?
   [X]startDirectory()
   [X]addDepartment()
   [X]addRole()
@@ -49,9 +31,8 @@ FUNCTIONS TO DO (inquirer):
   [X]viewDepartments()
   [X]viewRoles()
   [X]viewEmployees()
-  []updateEmployeeRole()
-
-
+  [X]updateEmployeeRole()
+ 
 */
 
 
@@ -104,6 +85,29 @@ const start = function() {
         };
       });
 };
+function sign(){
+
+console.log(`╔═════════════════════════════════════════════════════╗
+║                                                     ║
+║     _____                 _                         ║
+║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
+║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
+║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
+║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
+║                    |_|            |___/             ║
+║                                                     ║
+║     __  __                                          ║
+║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
+║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
+║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
+║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
+║                              |___/                  ║
+║                                                     ║
+\╚═════════════════════════════════════════════════════╝
+`);
+}
+
+sign()
 start()
 //addDepartment
 function addDepartment (){
@@ -218,30 +222,41 @@ function updateEmployeeRole() {
     connection.query("SELECT * FROM employee", function(err, response) {
         if(err) throw err;
         console.table(response);
-        inquirer.prompt({
-          type: "input",
-          message: "Which employee(id) would you like to update?",
-          name: "employee"
         })
-        .then(function (response){
-            let id = response.id;
-            inquirer
-            .prompt({
-              name: "roleId",
-              type: "input",
-              message: "Enter new role id",
+        connection.query("SELECT * FROM role", function(err, response) {
+            if(err) throw err;
+            console.table(response);
             })
-            .then(function (answer) {
-              var roleId = answer.roleId;
-    
-              var query = "UPDATE employee SET role_id=? WHERE id=?";
-              connection.query(query, [roleId, id], function (err, res) {
-                if (err) throw err;
-                start();
-              })
-        })
+    .then
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Type in the first name of the employee you would like to update.",
+        name: "employee"
+      },
+
+      {
+        type: "input",
+        message: "Type in role id you would employee updated to.",
+        name: "role"
+      }
+    ])
+    .then(function(answer) {
+      connection.query('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.role, answer.employee],function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        start();
       });
     });
-    }
+}
 
-//removeEmployee
+
+// connection.query("INSERT INTO role SET ?",
+//         {
+//             title: answer.title, salary: answer.salary, department_id: answer.department_iD
+//         },
+//         function(err, answer) {
+//             if (err) throw err;
+//         start()});  
+//     });
