@@ -14,13 +14,31 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
+    console.log(`╔═════════════════════════════════════════════════════╗
+║                                                     ║
+║     _____                 _                         ║
+║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
+║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
+║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
+║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
+║                    |_|            |___/             ║
+║                                                     ║
+║     __  __                                          ║
+║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
+║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
+║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
+║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
+║                              |___/                  ║
+║                                                     ║
+\╚═════════════════════════════════════════════════════╝
+`);
   });
 
 
 
 /*
 
-  []Add seeds sql file
+  [X]Add seeds sql file
 
 FUNCTIONS TO DO (inquirer):
   []get whole directory to show with console.table?
@@ -32,8 +50,6 @@ FUNCTIONS TO DO (inquirer):
   [X]viewRoles()
   [X]viewEmployees()
   []updateEmployeeRole()
-  []removeEmployee
-  []viewEverything
 
 
 */
@@ -107,7 +123,10 @@ function addDepartment (){
         start()
     })
 };
-//viewEverything
+//viewAll
+// function viewAll(answer){
+//     connection.query("")
+// }
 //addRole
 function addRole() {
     inquirer
@@ -139,7 +158,6 @@ function addRole() {
     });
     
 };
-
 
 //addEmployee
 function addEmployee() {
@@ -196,6 +214,34 @@ function viewEmployees() {
 };
 
 //updateEmployeeRole
-
+function updateEmployeeRole() {
+    connection.query("SELECT * FROM employee", function(err, response) {
+        if(err) throw err;
+        console.table(response);
+        inquirer.prompt({
+          type: "input",
+          message: "Which employee(id) would you like to update?",
+          name: "employee"
+        })
+        .then(function (response){
+            let id = response.id;
+            inquirer
+            .prompt({
+              name: "roleId",
+              type: "input",
+              message: "Enter new role id",
+            })
+            .then(function (answer) {
+              var roleId = answer.roleId;
+    
+              var query = "UPDATE employee SET role_id=? WHERE id=?";
+              connection.query(query, [roleId, id], function (err, res) {
+                if (err) throw err;
+                start();
+              })
+        })
+      });
+    });
+    }
 
 //removeEmployee
