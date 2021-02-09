@@ -79,15 +79,13 @@ const start = function() {
             case "Update employee role":
                 updateEmployeeRole();
             break;
-            case "Remove employee":
-                removeEmployee();
-            break;
         };
       });
 };
 function sign(){
 
-console.log(`╔═════════════════════════════════════════════════════╗
+console.log(`
+╔═════════════════════════════════════════════════════╗
 ║                                                     ║
 ║     _____                 _                         ║
 ║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
@@ -123,7 +121,13 @@ function addDepartment (){
             name: answer.department
         }
         ),
-        console.table(answer);
+        console.table(answer)
+        connection.query("SELECT * FROM department", function(err, response) {
+            if(err) throw err;
+            console.log("-------------------------------------------------------------------------------------")
+            console.table(response);
+            
+            });
         start()
     })
 };
@@ -148,16 +152,21 @@ function addRole() {
       {
         type: "input",
         message: "enter employee department id",
-        name: "department_id"
+        name: "role_id"
       }
     ])
     .then (function(answer) {
         connection.query("INSERT INTO role SET ?",
         {
-            title: answer.title, salary: answer.salary, department_id: answer.department_iD
+            title: answer.title, salary: answer.salary, role_id: answer.role_id
         },
         function(err, answer) {
             if (err) throw err;
+            connection.query("SELECT * FROM role", function(err, response) {
+                if(err) throw err;
+                console.log("-------------------------------------------------------------------------------------")
+                console.table(response);
+                });
         start()});  
     });
     
@@ -194,6 +203,7 @@ function addEmployee() {
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(err, response) {
     if(err) throw err;
+    console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -203,6 +213,7 @@ function viewDepartments() {
 function viewRoles() {
     connection.query("SELECT * FROM role", function(err, response) {
     if(err) throw err;
+    console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -212,6 +223,7 @@ function viewRoles() {
 function viewEmployees() {
     connection.query("SELECT * FROM employee", function(err, response) {
     if(err) throw err;
+    console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -221,12 +233,14 @@ function viewEmployees() {
 function updateEmployeeRole() {
     connection.query("SELECT * FROM employee", function(err, response) {
         if(err) throw err;
+        console.log("-------------------------------------------------------------------------------------")
         console.table(response);
         })
-        connection.query("SELECT * FROM role", function(err, response) {
-            if(err) throw err;
-            console.table(response);
-            })
+    connection.query("SELECT * FROM role", function(err, response) {
+        if(err) throw err;
+        console.log("-------------------------------------------------------------------------------------")
+        console.table(response);
+        })
     .then
     inquirer
     .prompt([
@@ -245,6 +259,7 @@ function updateEmployeeRole() {
     .then(function(answer) {
       connection.query('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.role, answer.employee],function(err, res) {
         if (err) throw err;
+        console.log("-------------------------------------------------------------------------------------")
         console.table(res);
         start();
       });
