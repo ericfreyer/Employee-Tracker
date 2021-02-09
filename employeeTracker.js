@@ -131,10 +131,7 @@ function addDepartment (){
         start()
     })
 };
-//viewAll
-// function viewAll(answer){
-//     connection.query("")
-// }
+
 //addRole
 function addRole() {
     inquirer
@@ -199,6 +196,7 @@ function addEmployee() {
                 if(err) throw err;
                 console.log("-------------------------------------------------------------------------------------")
                 console.table(response);
+                console.log("Please go to 'Update employee role' section to update new employee's role!")
                 });
             start()});
     });
@@ -270,13 +268,3 @@ function updateEmployeeRole() {
       });
     });
 }
-
-
-// connection.query("INSERT INTO role SET ?",
-//         {
-//             title: answer.title, salary: answer.salary, department_id: answer.department_iD
-//         },
-//         function(err, answer) {
-//             if (err) throw err;
-//         start()});  
-//     });
