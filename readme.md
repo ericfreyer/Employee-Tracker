@@ -15,7 +15,7 @@
 * [Credits](#credits)
 
 # Installation
-Install mysql, inquirer, console.table. Run node employeeDB.js to initialize the program.
+Install mysql, inquirer, console.table. Run node employeeTracker.js to initialize the program.
 
 # Usage
 This program allows an employee to view their companies employees, departments, and roles, and update the database with new employees, their roles, the their department.
