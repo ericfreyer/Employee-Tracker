@@ -195,6 +195,11 @@ function addEmployee() {
         },
         function(err, answer) {
             if (err) throw err;
+            connection.query("SELECT * FROM employee", function(err, response) {
+                if(err) throw err;
+                console.log("-------------------------------------------------------------------------------------")
+                console.table(response);
+                });
             start()});
     });
 };
