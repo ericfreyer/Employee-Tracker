@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
   });
 
 
-
 /*
 
   [X]Add seeds sql file
@@ -35,9 +34,29 @@ FUNCTIONS TO DO (inquirer):
  
 */
 
+function sign(){
+  console.log(`
+  ╔═════════════════════════════════════════════════════╗
+  ║                                                     ║
+  ║     _____                 _                         ║
+  ║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
+  ║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
+  ║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
+  ║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
+  ║                    |_|            |___/             ║
+  ║                                                     ║
+  ║     __  __                                          ║
+  ║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
+  ║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
+  ║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
+  ║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
+  ║                              |___/                  ║
+  ║                                                     ║
+  \╚═════════════════════════════════════════════════════╝
+  `);
+  }
 
 //Start prompt
-
 const start = function() {
     inquirer
       .prompt({
@@ -56,7 +75,6 @@ const start = function() {
         ]
       })
       .then(function(answer) {
-        console.log(answer);
         switch (answer.startDirectory) {
             case "Add department":
                 addDepartment();
@@ -82,28 +100,6 @@ const start = function() {
         };
       });
 };
-function sign(){
-
-console.log(`
-╔═════════════════════════════════════════════════════╗
-║                                                     ║
-║     _____                 _                         ║
-║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
-║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
-║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
-║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
-║                    |_|            |___/             ║
-║                                                     ║
-║     __  __                                          ║
-║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
-║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
-║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
-║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
-║                              |___/                  ║
-║                                                     ║
-\╚═════════════════════════════════════════════════════╝
-`);
-}
 
 sign()
 start()
@@ -124,9 +120,8 @@ function addDepartment (){
         console.table(answer)
         connection.query("SELECT * FROM department", function(err, response) {
             if(err) throw err;
-            console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
             console.table(response);
-            
             });
         start()
     })
@@ -161,12 +156,11 @@ function addRole() {
             if (err) throw err;
             connection.query("SELECT * FROM role", function(err, response) {
                 if(err) throw err;
-                console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
                 console.table(response);
                 });
         start()});  
     });
-    
 };
 
 //addEmployee
@@ -194,7 +188,7 @@ function addEmployee() {
             if (err) throw err;
             connection.query("SELECT * FROM employee", function(err, response) {
                 if(err) throw err;
-                console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
                 console.table(response);
                 console.log("Please go to 'Update employee role' section to update new employee's role!")
                 });
@@ -206,7 +200,7 @@ function addEmployee() {
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(err, response) {
     if(err) throw err;
-    console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -216,7 +210,7 @@ function viewDepartments() {
 function viewRoles() {
     connection.query("SELECT * FROM role", function(err, response) {
     if(err) throw err;
-    console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -226,7 +220,7 @@ function viewRoles() {
 function viewEmployees() {
     connection.query("SELECT * FROM employee", function(err, response) {
     if(err) throw err;
-    console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
     console.table(response);
     });
     start();
@@ -236,12 +230,12 @@ function viewEmployees() {
 function updateEmployeeRole() {
     connection.query("SELECT * FROM employee", function(err, response) {
         if(err) throw err;
-        console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
         console.table(response);
         })
     connection.query("SELECT * FROM role", function(err, response) {
         if(err) throw err;
-        console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
         console.table(response);
         })
     .then
@@ -262,7 +256,7 @@ function updateEmployeeRole() {
     .then(function(answer) {
       connection.query('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.role, answer.employee],function(err, res) {
         if (err) throw err;
-        console.log("-------------------------------------------------------------------------------------")
+console.log("-------------------------------------------------------------------------------------")
         console.table(res);
         start();
       });
